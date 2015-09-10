@@ -53,7 +53,7 @@ public class BoardManager : MonoBehaviour
 				GameObject go1 = Instantiate (cubePrefab, new Vector3 (j,i,0f), Quaternion.identity) as GameObject;
 //				go1.GetComponent<MeshRenderer>().material.color = Color.blue;
 				go1.name = ("X: "+ j + ", " + "Y: " + i).ToString();
-				go1.transform.position = new Vector3(go1.transform.position.x + 12, go1.transform.position.y, 0f);
+				go1.transform.position = new Vector3(go1.transform.position.x + 15, go1.transform.position.y, 0f);
 				go1.transform.SetParent(boardHolder2);
 				
 			}
