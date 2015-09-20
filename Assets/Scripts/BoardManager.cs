@@ -11,7 +11,7 @@ public class BoardManager : MonoBehaviour
 	private Transform boardHolder2;
 	
 	
-	// Use this for initialization
+
 	void Start () 
 	{
 		PlayerBoard ();
@@ -19,31 +19,34 @@ public class BoardManager : MonoBehaviour
 		
 	}
 	
-	
-	// Update is called once per frame
+
 	void Update () 
 	{
 		
 	}
-	
-	void PlayerBoard()
+
+
+	// Här skapar jag en board till spelaren med hjälp av två for-satser.
+	public void PlayerBoard()
 	{
-		boardHolder1 = new GameObject ("PlayerBoard").transform;
-		for (int i = 0; i < heightY; i++) 
-		{
-			for (int j = 0; j < widthX ; j++)
+		boardHolder1 = new GameObject ("PlayerBoard").transform;		// Här skapar jag ett gameObject som fungerar som en parent, så att kuberna hamnar under den i hiearkin. Detta för att det inte ska bli lika rörigt i inspectorn.
+		for (int i = 0; i < heightY; i++) 								// Börjar med att skapa en kub med 0,0,0.
+		{																
+			for (int j = 0; j < widthX ; j++)							// Sedan skapas 9 till i x leden. så att det blir 0,9,0.
 			{
 				GameObject go = Instantiate (cubePrefab, new Vector3 (j,i,0f), Quaternion.identity) as GameObject;
-//				go.GetComponent<MeshRenderer>().material.color = Color.blue;
-				go.name = ("X: "+ j + ", " + "Y: " + i).ToString();
+				go.name = ("PlayerCoords: X: "+ j + ", " + "Y: " + i).ToString();																	// Här ger jag varje kub i boardet ett namn med dess koordinater.
+				go.tag = "PlayerTile";
 				go.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z);
 				go.transform.SetParent(boardHolder1);
-				
+
 			}
 		}
+		Debug.Log ("Playerboard created!");
 	}
 
-	void EnemyBoard()
+	// Här skapar jag likt ovan en board, men döper den till Enemyboard istället.
+	public void EnemyBoard()
 	{
 		boardHolder2 = new GameObject ("EnemyBoard").transform;
 		for (int i = 0; i < heightY; i++) 
@@ -51,13 +54,15 @@ public class BoardManager : MonoBehaviour
 			for (int j = 0; j < widthX ; j++)
 			{
 				GameObject go1 = Instantiate (cubePrefab, new Vector3 (j,i,0f), Quaternion.identity) as GameObject;
-//				go1.GetComponent<MeshRenderer>().material.color = Color.blue;
-				go1.name = ("X: "+ j + ", " + "Y: " + i).ToString();
-				go1.transform.position = new Vector3(go1.transform.position.x + 15, go1.transform.position.y, 0f);
+				go1.name = ("EnemyCoords: X: "+ j + ", " + "Y: " + i).ToString();															// Ger kuberna ett namn med koordinater som ovan.
+				go1.transform.position = new Vector3(go1.transform.position.x + 15, go1.transform.position.y, 0f);				// Här instantierar jag boarden 15 koordinater längre bort (till vänster) så att den inte de båda boardsen hamnar ovanpå varandra.
+				go1.tag = "EnemyTile";
 				go1.transform.SetParent(boardHolder2);
+
 				
 			}
 		}
+		Debug.Log ("Enemyboard created!");
 	}
 	
 }

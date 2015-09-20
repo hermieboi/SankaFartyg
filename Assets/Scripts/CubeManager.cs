@@ -27,4 +27,9 @@ public class CubeManager : MonoBehaviour
 	{
 		gameObject.GetComponent<MeshRenderer>().material.color = baseColor;
 	}
+
+	void OnMouseEnter()
+	{
+
+	}
 }

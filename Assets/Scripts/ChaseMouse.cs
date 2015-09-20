@@ -7,7 +7,6 @@ public class ChaseMouse : MonoBehaviour
 	private Vector3 mousePoz;
 	private float x_Cords;
 	private float y_Cords;
-	private SpawnManager _spawnManager;
 	public bool Chasing = true;
 
 	
@@ -15,16 +14,17 @@ public class ChaseMouse : MonoBehaviour
 
 	void Awake()
 	{
-		_spawnManager = GetComponent<SpawnManager>();
+	
+
 	}
-	// Use this for initialization
+
 	void Start () 
 	{
 
 		mousePoz = transform.position;
 	}
 	
-	// Update is called once per frame
+
 	void Update () 
 	{
 
@@ -33,19 +33,18 @@ public class ChaseMouse : MonoBehaviour
 		
 	}
 
-	void OnMouseDown()
-	{
-		if (!Chasing)
-		{
-			gameObject.transform.position = new Vector3(transform.position.x, transform.position.y, 15);
-		}
-	}
+
+
 
 	void ChasingMouse()
 	{
-		mousePoz = new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 15);
-		mousePoz = Camera.main.ScreenToWorldPoint (mousePoz);
-		transform.position = mousePoz;
+
+		if (Chasing)
+		{
+			mousePoz = new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 15);
+			mousePoz = Camera.main.ScreenToWorldPoint (mousePoz);
+			transform.position = mousePoz;
+		}
 		
 		if (Input.GetKeyDown(KeyCode.Escape))
 		{
@@ -53,5 +52,14 @@ public class ChaseMouse : MonoBehaviour
 			Debug.Log ("You just destroyed: " + gameObject.name + ".");
 			Debug.Log ("Placement canceled. You have 1 more " + gameObject.name + " to spawn.");
 		}
+
+		if(Chasing && Input.GetKeyDown(KeyCode.Mouse0))
+		{
+			gameObject.transform.position = new Vector3 (transform.localPosition.x, transform.localPosition.y, 0f);
+			Chasing = false;
+			Debug.Log ("You just placed a " + gameObject.name + " on the player board.");
+		}
+
+
 	}
 }
